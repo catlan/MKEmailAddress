@@ -16,7 +16,9 @@
 #endif
 
 #import "NSString+MimeEncoding.h"
+
 #import "NSData+MimeWordDecoding.h"
+#import "NSData+Base64.h"
 
 
 @implementation NSString (MimeEncoding)
@@ -154,7 +156,7 @@
     }
     else if ([[word substringWithRange:NSMakeRange(i + 1, 2)] caseInsensitiveCompare:@"B?"] == NSOrderedSame) {
         encodedString = [word substringWithRange:NSMakeRange(i + 3, word.length - i - 5)];
-        NSData * decodedData = [[NSData alloc] initWithBase64EncodedString:encodedString options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        NSData * decodedData = [NSData dataFromBase64String:encodedString];
         NSString * decodedString = [[NSString alloc] initWithData:decodedData encoding:encoding];
         return decodedString;
     }
