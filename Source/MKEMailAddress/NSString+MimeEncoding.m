@@ -22,6 +22,10 @@
 
 
 @implementation NSString (MimeEncoding)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 + (NSString*) mimeWordWithString:(NSString*) string preferredEncoding:(NSStringEncoding)encoding encodingUsed:(NSStringEncoding*)usedEncoding{
     NSStringEncoding attemptedEncoding = encoding;
     
@@ -68,6 +72,8 @@
     if (usedEncoding) *usedEncoding = NSUTF8StringEncoding;
     return [NSString stringWithFormat:@"=?utf-8?B?%@?=",base64String];
 }
+
+#pragma clang diagnostic pop
 
 + (NSString*) stringWithMimeEncodedWord:(NSString*)word {
     // Example: =?iso-8859-1?Q?=A1Hola,_se=F1or!?=
